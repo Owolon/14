@@ -2,33 +2,30 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <math.h>
-#define _USE_MATH_DEFINES 
-#define CRT_SECURE_NO_DEPRECATE
 #define N 100
 #define XMAX 100
 #define XMIN 1
-
-double* full_elements(double* ptr_array, int size)//Генерация массива
+double* full_elements(double *ptr_array, int size, int x)
 {
+	double *temp_ptr = ptr_array;
 	for (int i = 0; i < size; i++)
 	{
-		*ptr_array = XMIN + 1 * (XMAX - XMIN) * rand() / RAND_MAX;
-		ptr_array++;
+		*temp_ptr += abs(exp(1) - 2) - pow(x + i, 2);
+		temp_ptr++;
 	}
 	return ptr_array;
 }
 
-int put_elements(double* ptr_array, int size)//Вывод эл-ов
+int put_elements(double* ptr_array, int size)//Рабочее вроде
 {
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size;i++)
 	{
 		printf("\nФункция вывода значений %.2lf", *ptr_array);
-		ptr_array++;
+		ptr_array+=8;
 	}
-	return 0;
 }
 
-double* calc_elements(double* ptr_array, int size)//Отбрасывание дроб.части
+double* calc_elements(double* ptr_array, int size)
 {
 	for (int i = 0; i < size; i++, ptr_array++)
 	{
@@ -36,90 +33,48 @@ double* calc_elements(double* ptr_array, int size)//Отбрасывание дроб.части
 	}
 	return ptr_array;
 }
-int find_element(double* ptr_array, int size, double element)//Поиск индекса
-{
-	int ind = 0;
-	for (int i = 0; i < N; i++)
-	{
-		int shtch = 0;
-		if (element == *ptr_array)
-		{
-			ind = i;
-			shtch += 1;
-		}
-		ptr_array++;
-	}
-	if (ind != 0)
-	{
-		return ind;
-	}
-	
-	if (ind == 0)
-	{
-		return -1; 
-	}
-}
 
-int funmax(double* ptr_array, int size, int ka)
+//DZ
+double* dz(double* ptr_array, int size, double max, double min)
 {
-	int ind = 0;
-	double max = 0.;
-	for (int i = ka; i < N; i++)
+	int a = 0;
+	for (int i = 0; i < size; i++)
 	{
-		if  (*ptr_array>max)
+		if (min < *ptr_array < max);
 		{
-			ind = i;
-			max = *ptr_array;
+			a++;
+			ptr_array++;
 		}
-		ptr_array++;
 	}
-	return ind;
+	return a;
 }
 
 void main()
 {
 	setlocale(LC_CTYPE , "RUS");
 	double array[N];
-	int size, ka, l;
-	double element;
+	int size, x;
 
 	printf("Введите размер массива > ");
 	scanf_s("%d", &size);
+	printf("Введите значение Х для заполнения массива >");
+	scanf_s("%d", &x);
 
 	double *ptr_array;
 	ptr_array = &array[0];
 
-	full_elements(array, size);
-	do
-	{
-		printf("\nМеню\n1.Поиск элемента\n2.Вывод всех элементов\n3.Поиск порядкого номера максимульного значения\n0.Выход > ");
-		scanf_s("%d", &l);
-		switch (l)
-		{
-		case 1:
-		{
-			printf("\nВведите искомое значение > ");
-			scanf_s("%lf", &element);
-			printf("\nИскомое зн-е под индексом > %d", find_element(array, size, element));
-			break;
-		}
-		case 2:
-		{
-			put_elements(array, size);
-			break;
-		}
-		case 3:
-		{
-			printf("\nВведите индекс с какого начать зн-я > ");
-			scanf_s("%d", &ka);
+	full_elements(array, size,x);
+	put_elements(array, size);
 
-			printf("\nИндекс зн-я > %d", funmax(array, size, ka));
-			break;
-		}
-		default:
-			printf("\nНеверное зн-е");
-			break;
-		}
-	} while (l != 0);
-	//ДЗ
+
+	//DZ
+	double max, min;
+	printf("Введите значение min > ");
+	scanf_s("%lf", &min);
+	printf("Введите значение max > ");
+	scanf_s("%lf", &max);
+
+	dz(array, size, max, min);
+	put_elements(array, size);
+	return 0;
 }

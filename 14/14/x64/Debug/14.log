@@ -1,5 +1,6 @@
 ﻿  Решение.c
 C:\Users\ПК\source\repos\14\14\Решение.c(13,27): warning C4244: функция: преобразование "double" в "int", возможна потеря данных
-C:\Users\ПК\source\repos\14\14\Решение.c(54,2): warning C4098: main: функция типа "void", возвращающая значение
+C:\Users\ПК\source\repos\14\14\Решение.c(47,2): warning C4047: return: "double *" отличается по уровням косвенного обращения от "int"
+C:\Users\ПК\source\repos\14\14\Решение.c(77,2): warning C4098: main: функция типа "void", возвращающая значение
 C:\Users\ПК\source\repos\14\14\Решение.c(26,1): warning C4716: put_elements: должна возвращать значение
   14.vcxproj -> C:\Users\ПК\source\repos\14\x64\Debug\14.exe
